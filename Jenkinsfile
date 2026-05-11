@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/<your-repo>/myapp.git'
+                git 'https://github.com/jayasriaero15/k8s.git'
             }
         }
         stage('Build') {
@@ -31,6 +31,12 @@ pipeline {
                 sh 'helm package charts/myapp && helm push myapp-*.tgz oci://gcr.io/project-af5a9a8c-a838-417b-891/charts'
             }
         }
+	stage('Deploy to GKE') {
+	    steps {
+    		sh 'helm upgrade --install myapp charts/myapp --namespace prod --set image.tag=${BUILD_NUMBER}'
+	    }
+	}
+
     }
     post {
         success {
