@@ -21,7 +21,8 @@ pipeline {
                 withCredentials([file(credentialsId: 'gcp-wif-config', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
                     bat '''
                         echo Authenticating to Google Cloud using Workload Identity Federation...
-                        gcloud auth login --cred-file=%GOOGLE_APPLICATION_CREDENTIALS%
+                        set GOOGLE_APPLICATION_CREDENTIALS=%GOOGLE_APPLICATION_CREDENTIALS%
+                        gcloud auth activate-service-account --key-file=%GOOGLE_APPLICATION_CREDENTIALS%
                         gcloud auth configure-docker asia-south2-docker.pkg.dev --quiet
                         gcloud config set project project-af5a9a8c-a838-417b-891
                         gcloud auth list
