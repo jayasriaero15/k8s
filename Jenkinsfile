@@ -18,7 +18,7 @@ pipeline {
 
         stage('Authenticate to GCP via WIF') {
             steps {
-                withCredentials([file(credentialsId: 'gcp-wif-cred', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+                withCredentials([file(credentialsId: 'gcp-wif-config', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
                     bat '''
                         echo Authenticating to Google Cloud using Workload Identity Federation...
                         gcloud auth login --cred-file=%GOOGLE_APPLICATION_CREDENTIALS%
