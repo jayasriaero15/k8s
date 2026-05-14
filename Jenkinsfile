@@ -21,11 +21,11 @@ pipeline {
                 withCredentials([file(credentialsId: 'gcp-wif-config', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
                     bat '''
                         echo Authenticating to Google Cloud using Workload Identity Federation...
-                        set GOOGLE_APPLICATION_CREDENTIALS=%GOOGLE_APPLICATION_CREDENTIALS%
-                        gcloud auth login --cred-file=%GOOGLE_APPLICATION_CREDENTIALS%
-                        gcloud auth configure-docker asia-south2-docker.pkg.dev --quiet
-                        gcloud config set project project-af5a9a8c-a838-417b-891
-                        gcloud auth list
+			set GOOGLE_APPLICATION_CREDENTIALS=C:\\temp\\jenkins-cred.json
+			gcloud auth login --cred-file=%GOOGLE_APPLICATION_CREDENTIALS%
+			gcloud auth list
+			gcloud projects list
+
                     '''
                 }
             }
